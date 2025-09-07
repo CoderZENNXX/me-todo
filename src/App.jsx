@@ -2,7 +2,7 @@ import './App.css'
 import { useState } from 'react'
 
 function App() {
-  const [tasks, setTasks] = useState(["Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes"])
+  const [tasks, setTasks] = useState(["Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes", "Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes"])
   const [doneTasks, setDoneTasks] = useState([""])
 
   function deleteTask(index) {
@@ -24,9 +24,9 @@ function App() {
 
       <main className="main">
         <h1 className="list-title">To-Do List</h1>
-        <div className="btn-list">
-          <button className="add-btn">Add Task</button>
-          <button className="done-list-btn">Done List</button>
+        <div className="menu">
+          <input type="text" className="task-input" placeholder="Enter a task" />
+          <button className="done-list-btn">Show Done</button>
         </div>
         <ol className="tasks-list">
           {tasks.map((task, index) => (
