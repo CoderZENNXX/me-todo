@@ -76,11 +76,14 @@
 .task-container {
     height: fit-content;
     display: flex;
+    align-items: center;
     gap: 5px;
+    border-radius: 5px;
 }
 
 .task {
     margin-bottom: 10px;
+    margin-left: 5px;
     width: 260px;
     overflow-wrap: break-word;
 }
@@ -93,4 +96,5 @@
 .done-btn {
     background-color: rgb(0, 255, 0);
     color: white;
+    margin-right: 5px;
 }
