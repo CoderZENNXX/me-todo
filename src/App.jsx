@@ -2,40 +2,85 @@ import './App.css'
 import { useState } from 'react'
 
 function App() {
-  const [tasks, setTasks] = useState(["Go to my sister's friend's university campus in New York City", "Buy groceries", "Finish my React project", "Read a book", "Exercise for 30 minutes"])
+  const [normalTasks, setNormalTasks] = useState([
+    "Go to my sister's friend's university campus in New York City", 
+    "Buy groceries", 
+    "Finish my React project", 
+    "Read a book", 
+    "Exercise for 30 minutes"
+  ])
   const [doneTasks, setDoneTasks] = useState([])
-  const [showDone, setShowDone] = useState(false)
+  const [pendingTasks, setPendingTasks] = useState([])
+  const [showList, setShowList] = useState("normal")
 
   function addTask(e) {
     if (e.target.value.trim() !== "") {
-      setTasks([...tasks, e.target.value])
+      setNormalTasks([...normalTasks, e.target.value])
     }
     e.target.value = ""
   }
 
-  function deleteTask(index) {
-    setTasks(tasks.filter((_, i) => i !== index))
+  function deleteTask(index, type) {
+    if(type === "normal") {
+      setNormalTasks(normalTasks.filter((_, i) => i !== index))
+    }
+
+    if(type === "done") {
+      setDoneTasks(doneTasks.filter((_, i) => i !== index))
+    }
+
+    if(type === "pending") {
+      setPendingTasks(pendingTasks.filter((_, i) => i !== index))
+    }
   }
 
-  function deleteDoneTask(index) {
-    setDoneTasks(doneTasks.filter((_, i) => i !== index))
+  function moveTask(index, type) {
+    let task;
+    if(type === "normal") {
+      task = normalTasks[index]
+      setNormalTasks(normalTasks.filter((_, i) => i !== index))
+      setDoneTasks([...doneTasks, task])
+    }
+
+    if(type === "done") {
+      task = doneTasks[index]
+      setDoneTasks(doneTasks.filter((_, i) => i !== index))
+      setPendingTasks([...pendingTasks, task])
+    }
+
+    if(type === "pending") {
+      task = pendingTasks[index]
+      setPendingTasks(pendingTasks.filter((_, i) => i !== index))
+      setNormalTasks([...normalTasks, task])
+    }
   }
 
-  function doneTask(index) {
-    const taskToMove = tasks[index]
-    setDoneTasks([...doneTasks, taskToMove])
-    deleteTask(index)
+  function toggleShowList() {
+    if(showList === "normal") {
+      setShowList("done")
+    }
+
+    else if(showList === "done") {
+      setShowList("pending")
+    }
+
+    else {
+      setShowList("normal")
+    }
   }
 
-  function unDoneTask(index) {
-    const taskToMove = doneTasks[index]
-    setTasks([...tasks, taskToMove])
-    deleteDoneTask(index)
+  let tasksToShow, typeForButton
+  if(showList === "normal") {
+    tasksToShow = normalTasks
+    typeForButton = "normal"
   }
-
-  function toggleShowDone(e) {
-    setShowDone(!showDone)
-    e.target.textContent = showDone ? "Show Done Tasks" : "Hide Done Tasks"
+  else if(showList === "done") {
+    tasksToShow = doneTasks
+    typeForButton = "done"
+  }
+  else {
+    tasksToShow = pendingTasks
+    typeForButton = "pending"
   }
 
   return (
@@ -47,36 +92,30 @@ function App() {
       <main className="main">
         <h1 className="list-title">To-Do List</h1>
         <div className="menu">
-          <input type="text" className="task-input" placeholder="Enter a task" 
-            onKeyDown={(e) => e.key === "Enter" && addTask(e, e.target.value)}
-          />
-          <button className="done-list-btn" onClick={(e) => toggleShowDone(e)}>Show Done Tasks</button>
+          {showList === "normal" && (
+            <input 
+              type="text" 
+              className="task-input" 
+              placeholder="Enter a task" 
+              onKeyDown={(e) => e.key === "Enter" && addTask(e)} 
+            />
+          )}
+          <button className="done-list-btn" onClick={toggleShowList}>
+            {showList === "normal" ? "Show Done Tasks" : showList === "done" ? "Show Pending Tasks" : "Show Normal Tasks"}
+          </button>
         </div>
-        {
-          showDone ? (
-            <ol className="tasks-list">
-              {doneTasks.map((task, index) => (
-                <div className="task-container" key={index}>
-                    <li key={index} className="task">{task}</li>
-                    <button className="delete-btn" onClick={() => deleteDoneTask(index)}>Remove</button>
-                    <button className="done-btn" onClick={() => unDoneTask(index)}>Undone</button>
-                </div>
-              ))}
-            </ol>
-          ) : 
-          (
-            <ol className="tasks-list">
-              {tasks.map((task, index) => (
-                <div className="task-container" key={index}>
-                    <li key={index} className="task">{task}</li>
-                    <button className="delete-btn" onClick={() => deleteTask(index)}>Remove</button>
-                    <button className="done-btn" onClick={() => doneTask(index)}>Done</button>
-                </div>
-              ))}
-            </ol>
-          )
-        }
-        
+
+        <ol className="tasks-list">
+          {tasksToShow.map((task, index) => (
+            <div className="task-container" key={index}>
+              <li className="task">{task}</li>
+              <button className="delete-btn" onClick={() => deleteTask(index, typeForButton)}>Remove</button>
+              <button className="done-btn" onClick={() => moveTask(index, typeForButton)}>
+                {typeForButton === "normal" ? "Done" : typeForButton === "done" ? "Pending" : "Undo"}
+              </button>
+            </div>
+          ))}
+        </ol>
       </main>
     </div>
   )
