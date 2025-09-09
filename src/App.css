@@ -14,9 +14,6 @@
     grid-area: header;
     background-color: white;
     color: black;
-    position: sticky;
-    top: 0;
-    z-index: 1;
     display: flex;
 }
 
@@ -38,7 +35,7 @@
 }
 
 .delete-btn, .done-btn, .task-input, .done-list-btn {
-    width: 80px;
+    width: 90px;
     height: 40px;
     font-size: 20px;
     border: none;
@@ -47,7 +44,7 @@
 }
 
 .done-list-btn {
-    width: 120px;
+    width: 180px;
 }
 
 .task-input {
