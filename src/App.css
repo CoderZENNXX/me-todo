@@ -82,18 +82,21 @@
 }
 
 .task {
-    margin-bottom: 10px;
     margin-left: 5px;
     width: 260px;
     overflow-wrap: break-word;
 }
 
 .delete-btn {
+    margin-top: 5px;
+    margin-bottom: 5px;
     background-color: red;
     color: white;
 }
 
 .done-btn {
+    margin-top: 5px;
+    margin-bottom: 5px;
     background-color: rgb(0, 255, 0);
     color: white;
     margin-right: 5px;

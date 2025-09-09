@@ -46,10 +46,12 @@ function App() {
 
         <ol className="tasks-list">
           {tasks.map((task, index) => (
-            <div className="task-container" key={index}>
+            <div className="task-container" key={index}
+              style={{backgroundColor: task.done ? "green" : "inherit"}}
+            >
               <li 
                 className="task" 
-                style={{backgroundColor: task.done ? "green" : "inherit", textDecoration: task.done ? "line-through" : "none" }}
+                style={{textDecoration: task.done ? "line-through" : "none"}}
               >
                 {task.text}
               </li>
