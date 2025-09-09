@@ -3,16 +3,16 @@ import { useState } from 'react'
 
 function App() {
   const [tasks, setTasks] = useState([
-    { text: "Go to my sister's friend's university campus in New York City", done: false },
-    { text: "Buy groceries", done: false },
-    { text: "Finish my React project", done: false },
-    { text: "Read a book", done: false },
-    { text: "Exercise for 30 minutes", done: false }
+    { text: "Go to my sister's friend's university campus in New York City", status: "normal" },
+    { text: "Buy groceries", status: "normal" },
+    { text: "Finish my React project", status: "normal" },
+    { text: "Read a book", status: "normal" },
+    { text: "Exercise for 30 minutes", status: "normal" }
   ])
 
   function addTask(e) {
     if (e.target.value.trim() !== "") {
-      setTasks([...tasks, { text: e.target.value, done: false }])
+      setTasks([...tasks, { text: e.target.value, status: "normal" }])
     }
     e.target.value = ""
   }
@@ -21,10 +21,23 @@ function App() {
     setTasks(tasks.filter((_, i) => i !== index))
   }
 
-  function toggleDoneTask(index) {
-    setTasks(tasks.map((task, i) => 
-      i === index ? { ...task, done: !task.done } : task
-    ))
+  function toggleStatus(index) {
+    setTasks(tasks.map((task, i) => {
+      if (i === index) {
+        let nextStatus
+        if (task.status === "done") {
+          nextStatus = "pending"
+        }
+        else if (task.status === "pending") {
+          nextStatus = "normal"
+        }
+        else {
+          nextStatus = "done"
+        }
+        return { ...task, status: nextStatus }
+      }
+      return task
+    }))
   }
 
   return (
@@ -46,18 +59,23 @@ function App() {
 
         <ol className="tasks-list">
           {tasks.map((task, index) => (
-            <div className="task-container" key={index}
-              style={{backgroundColor: task.done ? "green" : "inherit"}}
+            <div 
+              className="task-container" 
+              key={index}
+              style={{
+                backgroundColor: task.status === "done" ? "green" : task.status === "pending" ? "orange" : "inherit",
+                color: task.status === "done" || task.status === "pending" ? "black" : "inherit"
+              }}
             >
               <li 
                 className="task" 
-                style={{textDecoration: task.done ? "line-through" : "none"}}
+                style={{textDecoration: task.status === "done" ? "line-through" : "none"}}
               >
                 {task.text}
               </li>
               <button className="delete-btn" onClick={() => deleteTask(index)}>Remove</button>
-              <button className="done-btn" onClick={() => toggleDoneTask(index)}>
-                {task.done ? "Undo" : "Done"}
+              <button className="done-btn" onClick={() => toggleStatus(index)}>
+                {task.status === "done" ? "Pending" : task.status === "pending" ? "Undo" : "Done"}
               </button>
             </div>
           ))}
