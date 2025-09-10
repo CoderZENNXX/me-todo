@@ -74,8 +74,11 @@ function App() {
                 {task.text}
               </li>
               <button className="delete-btn" onClick={() => deleteTask(index)}>Remove</button>
-              <button className="done-btn" onClick={() => toggleStatus(index)}>
-                {task.status === "done" ? "Pending" : task.status === "pending" ? "Undo" : "Done"}
+              <button className="done-btn" onClick={() => toggleStatus(index)}
+                style={{
+                  backgroundColor: task.status === "done" ? "darkgreen" : task.status === "pending" ? "darkorange" : "black"
+                }}>
+                {task.status === "done" ? "Done" : task.status === "pending" ? "Pending" : "Normal"}
               </button>
             </div>
           ))}
