@@ -101,7 +101,7 @@ function App() {
             />
           )}
           <button className="done-list-btn" onClick={toggleShowList}>
-            {showList === "normal" ? "Show Done Tasks" : showList === "done" ? "Show Pending Tasks" : "Show Normal Tasks"}
+            {showList === "normal" ? "Normal Tasks" : showList === "done" ? "Done Tasks" : "Pending Tasks"}
           </button>
         </div>
 
@@ -110,8 +110,11 @@ function App() {
             <div className="task-container" key={index}>
               <li className="task">{task}</li>
               <button className="delete-btn" onClick={() => deleteTask(index, typeForButton)}>Remove</button>
-              <button className="done-btn" onClick={() => moveTask(index, typeForButton)}>
-                {typeForButton === "normal" ? "Done" : typeForButton === "done" ? "Pending" : "Undo"}
+              <button className="done-btn" onClick={() => moveTask(index, typeForButton)}
+                style={{
+                  backgroundColor: typeForButton === "normal" ? "black" : typeForButton === "done" ? "darkgreen" : "darkorange"
+                }}>
+                {typeForButton === "normal" ? "Normal" : typeForButton === "done" ? "Done" : "Pending"}
               </button>
             </div>
           ))}
